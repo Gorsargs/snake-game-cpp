@@ -8,8 +8,8 @@
 class Controller
 {
 private:
-	SnakePlayer* snake;
-	Board* board;
+	SnakePlayer* snake{};
+	Board* board{};
 	std::queue<sf::Keyboard::Key> eventQueue;
 public:
 	Controller(SnakePlayer* pSnake, Board* pBoard);

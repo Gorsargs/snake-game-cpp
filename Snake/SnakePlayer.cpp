@@ -1,5 +1,4 @@
 #include "SnakePlayer.h"
-#include <iostream>
 
 
 void SnakePlayer::moveSnake()
@@ -12,15 +11,20 @@ void SnakePlayer::moveSnake()
 SnakePlayer::SnakePlayer(Board* pBoard)
 {
 	body = {
-		{0,0},{0,1},{0,2},{0,3}
+		{1,0},{2,0},{3,0},{4,0}
 	};
 	board = pBoard;
 }
 
+void SnakePlayer::Eat(myPosStruct pos)
+{
+	body.push_back(pos);
+}
+
 void SnakePlayer::moveHead()
 {
-	body[body.size() - 1][0] = body[body.size() - 1][0] + (1 * dirY);
-	body[body.size() - 1][1] = body[body.size() - 1][1] + (1 * dirX);
+	body[body.size() - 1].x = body[body.size() - 1].x + (1 * dirX);
+	body[body.size() - 1].y = body[body.size() - 1].y + (1 * dirY);
 }
 
 void SnakePlayer::moveBodyToHead()
@@ -35,15 +39,15 @@ void SnakePlayer::moveBodyToHead()
 void SnakePlayer::checkBorders()
 {
 	//teleports the snake's head to the opposite side if out of border
-	std::vector<int> headPos = body[body.size() - 1];
-	if (headPos[1] == board->ROW)
-		body[body.size() - 1][1] = 0;
-	if (headPos[1] < 0)
-		body[body.size() - 1][1] = board->ROW - 1;
-	if(headPos[0] == board->COL)
-		body[body.size() - 1][0] = 0;
-	if (headPos[0] < 0)
-		body[body.size() - 1][0] = board->COL - 1;
+	myPosStruct headPos = body[body.size() - 1];
+	if (headPos.y == board->COL)
+		body[body.size() - 1].y = 0;
+	if (headPos.y < 0)
+		body[body.size() - 1].y = board->COL - 1;
+	if(headPos.x == board->ROW)
+		body[body.size() - 1].x = 0;
+	if (headPos.x < 0)
+		body[body.size() - 1].x = board->ROW - 1;
 }
 
 
